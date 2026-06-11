@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gated Content Setup Workflow</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .input-section {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+            border: 2px solid #e9ecef;
+        }
+
+        .input-section h2 {
+            font-size: 18px;
+            margin-bottom: 25px;
+            color: #222;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-grid.full {
+            grid-template-columns: 1fr;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group input,
+        .form-group select {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .campaign-details {
+            background: #e7f3ff;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            border-radius: 6px;
+            margin-top: 20px;
+        }
+
+        .campaign-details h3 {
+            font-size: 13px;
+            color: #667eea;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .detail-row {
+            margin-bottom: 12px;
+        }
+
+        .detail-label {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 4px;
+        }
+
+        .copy-block {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            border: 1px solid #ddd;
+            padding: 12px;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 13px;
+            overflow-x: auto;
+        }
+
+        .copy-button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            white-space: nowrap;
+            margin-left: 10px;
+            transition: background 0.2s;
+        }
+
+        .copy-button:hover {
+            background: #764ba2;
+        }
+
+        .copy-button.copied {
+            background: #4CAF50;
+        }
+
+        .workflow-section {
+            margin-top: 40px;
+        }
+
+        .workflow-section h2 {
+            font-size: 24px;
+            margin-bottom: 30px;
+            color: #222;
+        }
+
+        .phase {
+            border-left: 4px solid #667eea;
+            padding: 25px;
+            margin-bottom: 30px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+
+        .phase.completed {
+            background: #f0fdf4;
+            border-left-color: #4CAF50;
+        }
+
+        .phase-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .phase-checkbox {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .phase-checkbox:checked {
+            accent-color: #4CAF50;
+        }
+
+        .phase-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #222;
+            cursor: pointer;
+        }
+
+        .phase-checkbox:checked ~ .phase-title {
+            color: #999;
+            text-decoration: line-through;
+        }
+
+        .phase-meta {
+            display: flex;
+            gap: 20px;
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 20px;
+            margin-left: 39px;
+        }
+
+        .phase-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .step-list {
+            margin-left: 39px;
+            margin-bottom: 20px;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+            font-size: 14px;
+        }
+
+        .step input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .step label {
+            cursor: pointer;
+            flex-grow: 1;
+        }
+
+        .step input[type="checkbox"]:checked + label {
+            color: #999;
+            text-decoration: line-through;
+        }
+
+        .verify-section {
+            background: #fffbea;
+            border-left: 3px solid #ff9800;
+            padding: 15px;
+            margin-left: 39px;
+            margin-top: 15px;
+            border-radius: 4px;
+        }
+
+        .verify-section h4 {
+            font-size: 12px;
+            color: #f57c00;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .verify-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 0;
+            font-size: 13px;
+        }
+
+        .verify-item input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .master-checklist {
+            background: linear-gradient(135deg, #e7f3ff 0%, #f0f8ff 100%);
+            border-left: 4px solid #667eea;
+            padding: 25px;
+            margin-top: 40px;
+            border-radius: 6px;
+        }
+
+        .master-checklist h3 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        .master-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+            font-size: 14px;
+        }
+
+        .master-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .master-item label {
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .completion-banner {
+            display: none;
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .completion-banner.show {
+            display: block;
+        }
+
+        .completion-banner h2 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .completion-banner p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .time-badge {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .input-section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Gated Content Setup</h1>
+            <p>Automate your 7-phase workflow across WordPress, Gravity Forms, HubSpot, Salesforce & LeanData</p>
+        </div>
+
+        <div class="content">
+            <!-- Input Section -->
+            <div class="input-section">
+                <h2>Asset Details</h2>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="formalTitle">Formal Asset Title</label>
+                        <input type="text" id="formalTitle" placeholder="e.g., Customer Onboarding: The Personalized Video & AI Playbook">
+                    </div>
+                    <div class="form-group">
+                        <label for="shortName">Short Name (for campaign naming)</label>
+                        <input type="text" id="shortName" placeholder="e.g., CustomerOnboarding">
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="assetType">Asset Type</label>
+                        <select id="assetType">
+                            <option value="">Select asset type...</option>
+                            <option value="CaseStudy">Case Study</option>
+                            <option value="Guide">Guide</option>
+                            <option value="Report">Report</option>
+                            <option value="Playbook">Playbook</option>
+                            <option value="Webinar">Webinar</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="quarter">Quarter & Year</label>
+                        <input type="text" id="quarter" placeholder="e.g., Q2 2026">
+                    </div>
+                </div>
+
+                <div class="form-grid full">
+                    <div class="form-group">
+                        <label for="assetUrl">Asset URL (HubSpot TOFU Assets)</label>
+                        <input type="url" id="assetUrl" placeholder="https://info.sundaysky.com/hubfs/TOFU%20Assets/...">
+                    </div>
+                </div>
+
+                <div class="form-grid full">
+                    <div class="form-group">
+                        <label for="landingUrl">Landing Page URL</label>
+                        <input type="url" id="landingUrl" placeholder="https://sundaysky.com/ebook/...">
+                    </div>
+                </div>
+
+                <!-- Campaign Details Generated -->
+                <div class="campaign-details" id="campaignDetails" style="display: none;">
+                    <h3>Generated Campaign Names</h3>
+
+                    <div class="detail-row">
+                        <div class="detail-label">Campaign Name</div>
+                        <div class="copy-block">
+                            <span id="campaignName"></span>
+                            <button class="copy-button" onclick="copyToClipboard(document.getElementById('campaignName').textContent, this)">Copy</button>
+                        </div>
+                    </div>
+
+                    <div class="detail-row">
+                        <div class="detail-label">Autoresponder Email</div>
+                        <div class="copy-block">
+                            <span id="autoresponderName"></span>
+                            <button class="copy-button" onclick="copyToClipboard(document.getElementById('autoresponderName').textContent, this)">Copy</button>
+                        </div>
+                    </div>
+
+                    <div class="detail-row">
+                        <div class="detail-label">Redirect URL (with thank you)</div>
+                        <div class="copy-block">
+                            <span id="redirectUrl"></span>
+                            <button class="copy-button" onclick="copyToClipboard(document.getElementById('redirectUrl').textContent, this)">Copy</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Workflow Section -->
+            <div class="workflow-section" id="workflowSection" style="display: none;">
+                <h2>7-Phase Workflow</h2>
+
+                <!-- Phase 1 -->
+                <div class="phase" data-phase="1">
+                    <div class="phase-header">
+                        <input type="checkbox" class="phase-checkbox" data-phase="1">
+                        <label class="phase-title">Phase 1: Salesforce Campaign Creation</label>
+                    </div>
+                    <div class="phase-meta">
+                        <span>📱 Salesforce</span>
+                        <span class="time-badge">⏱ 5 minutes</span>
+                    </div>
+                    <div class="step-list">
+                        <div class="step"><input type="checkbox"><label>Go to Salesforce → Campaigns</label></div>
+                        <div class="step"><input type="checkbox"><label>Click "New"</label></div>
+                        <div class="step"><input type="checkbox"><label>Enter campaign name (use copy button above)</label></div>
+                        <div class="step"><input type="checkbox"><label>Set Type to "Content Download"</label></div>
+                        <div class="step"><input type="checkbox"><label>Set Status to "Active"</label></div>
+                        <div class="step"><input type="checkbox"><label>Check the "Active" checkbox</label></div>
+                        <div class="step"><input type="checkbox"><label>Set Start Date to today</label></div>
+                        <div class="step"><input type="checkbox"><label>Click Save</label></div>
+                    </div>
+                    <div class="verify-section">
+                        <h4>✓ Verification</h4>
+                        <div class="verify-item"><input type="checkbox"><label>Campaign appears with correct name</label></div>
+                        <div class="verify-item"><input type="checkbox"><label>Type shows "Content Download"</label></div>
+                        <div class="verify-item"><input type="checkbox"><label>Active checkbox is checked</label></div>
+                    </div>
+                </div>
+
+                <!-- Phase 2 -->
+                <div class="phase" data-phase="2">
+                    <div class="phase-header">
+                        <input type="checkbox" class="phase-checkbox" data-phase="2">
+                        <label class="phase-title">Phase 2: HubSpot Campaign Setup</label>
+                    </div>
+                    <div class="phase-meta">
+                        <span>📊 HubSpot</span>
+                        <span class="time-badge">⏱ 5 minutes</span>
+                    </div>
+                    <div class="step-list">
+                        <div class="step"><input type="checkbox"><label>Go to HubSpot → Marketing → Campaigns</label></div>
+                        <div class="step"><input type="checkbox"><label>Click "Create campaign"</label></div>
+                        <div class="step"><input type="checkbox"><label>Enter campaign name (use copy button above)</label></div>
+                        <div class="step"><input type="checkbox"><label>Set Campaign type to "Content Download"</label></div>
+                        <div class="step"><input type="checkbox"><label>Click "Save & continue"</label></div>
+                        <div class="step"><input type="checkbox"><label>Click "Add assets"</label></div>
+                        <div class="step"><input type="checkbox"><label>Select the PDF asset</label></div>
+                        <div class="step"><input type="checkbox"><label>Save the campaign</label></div>
+                    </div>
+                    <div class="verify-section">
+                        <h4>✓ Verification</h4>
+                        <div class="verify-item"><input type="checkbox"><label>Campaign shows in HubSpot</label></div>
+                        <div class="verify-item"><input type="checkbox"><label>Name matches Salesforce exactly</label></div>
+                        <div class="verify-item"><input type="checkbox"><label>Asset is linked</label></div>
+                    </div>
+                </div>
+
+                <!-- Phase 3 -->
+                <div class="phase" data-phase="3">
+                    <div class="phase-header">
+                        <input type="checkbox" class="phase-checkbox" data-phase="3">
+                        <label class="phase-title">Phase 3: Autoresponder Email Setup</label>
+                    </div>
+                    <div class="phase-meta">
+                        <span>📧 HubSpot</span>
+                        <span class="time-badge">⏱ 10 minutes</span>
+                    </div>
+                    <div class="step-list">
+                        <div class="step"><input type="checkbox"><label>Go to HubSpot → Marketing → Emails</label></div>
+                        <div class="step"><input type="checkbox"><label>Find an existing content download autoresponder</label></div>
+                        <div class="step"><input type="checkbox"><label>Click "Actions" → "Clone"</label></div>
+                        <div class="step"><input type="checkbox"><label>Name it with _AUTORESPONDER suffix (use copy button above)</label></div>
+                        <div class="step"><input type="checkbox"><label>Update subject line to mention the asset</label></div>
+                        <div class="step"><input type="checkbox"><label>Update email body copy</label></div>
+                        <div class="step"><input type="checkbox"><label>Replace asset URL in CTA button</label></div>
+                        <div class="step"><input type="checkbox"><label>Save the email draft</label></div>
+                    </div>
+                    <div class="verify-section">
+                        <h4>✓ Verification</h4>
+                        <div class="verify-item"><input type="checkbox"><label>Email name is correct with _AUTORESPONDER</label></div>
+                        <div class="verify-item"><input type="checkbox"><label>Send test email to yourself</label></div>
+                        <div class="verify-item"><input type="checkbox"><label>Email arrives with working PDF link</label></div>
+                    </div>
+                </div>
+
+                <!-- Phase 4 -->
+                <div class="phase" data-phase="4">
+                    <div class="phase-header">
+                        <input type="checkbox" class="phase-checkbox" data-phase="4">
+                        <label class="phase-title">Phase 4: WordPress Page Update</label>
+                    </div>
+                    <div class="phase-meta">
+                        <span>🌐 WordPress</span>
+                        <span class="time-badge">⏱ 5 minutes</span>
+                    </div>
+                    <div class="step-list">
+                        <div class="step"><input type="checkbox"><label>Go to WordPress Admin → Resources</label></div>
+                        <div class="step"><input type="checkbox"><label>Find the landing page for this asset</label></div>
+                        <div class="step"><input type="checkbox"><label>Locate the Gravity Form on the page</label></div>
+                        <div class="step"><input type="checkbox"><label>Update form name (use copy button above)</label></div>
+                        <div class="step"><input type="checkbox"><label>Update form redirect URL (use copy button above)</label></div>
+                        <div class="step"><input type="checkbox"><label>Publish the page</label></div>
+                    </div>
+                    <div class="verify-section">
+                        <h4>✓ Verification</h4>
+                        <div class="verify-item"><input type="checkbox"><label>Form name matches campaign name</label></div>
+                        <div class="verify-item"><input type="checkbox"><label>Redirect URL includes ?thankYou=true</label></div>
+                    </div>
+                </div>
+
+                <!-- Phase 5 -->
+                <div class="phase" data-phase="5">
+                    <div class="phase-header">
+                        <input type="checkbox" class="phase-checkbox" data-phase="5">
+                        <label class="phase-title">Phase 5: HubSpot Form Submission Workflow</label>
+                    </div>
+                    <div class="phase-meta">
+                        <span>⚙️ HubSpot</span>
+                        <span class="time-badge">⏱ 15 minutes</span>
+                    </div>
+                    <div class="step-list">
+                        <div class="step"><input type="checkbox"><label>Go to HubSpot → Automation → Workflows</label></div>
+                        <div class="step"><input type="checkbox"><label>Find the most recent content download workflow</label></div>
+                        <div class="step"><input type="checkbox"><label>Click "Actions" → "Clone"</label></div>
+                        <div class="step"><input type="checkbox"><label>Rename it (use copy button above)</label></div>
+                        <div class="step"><input type="checkbox"><label>Update Element 1: Form trigger</label></div>
+                        <div class="step"><input type="checkbox"><label>Update Element 2: Autoresponder email (use copy button above)</label></div>
+                        <div class="step"><input type="checkbox"><label>Update Element 3: Salesforce campaign (use copy button above)</label></div>
+                        <div class="step"><input type="checkbox"><label>Update Element 4: Task description with asset title</label></div>
+                        <div class="step"><input type="checkbox"><label>Update Element 5: Slack notification with asset title</label></div>
+                        <div class="step"><input type="checkbox"><label>Save the workflow</label></div>
+                        <div class="step"><input type="checkbox"><label>Turn ON the workflow</label></div>
+                    </div>
+                    <div class="verify-section">
+                        <h4>✓ Verification</h4>
+                        <div class="verify-item"><input type="checkbox"><label>All 5 elements updated</label></div>
+                        <div class="verify-item"><input type="checkbox"><label>Workflow status is ON</label></div>
+                    </div>
+                </div>
+
+                <!-- Phase 6 -->
+                <div class="phase" data-phase="6">
+                    <div class="phase-header">
+                        <input type="checkbox" class="phase-checkbox" data-phase="6">
+                        <label class="phase-title">Phase 6: Form Testing Checklist</label>
+                    </div>
+                    <div class="phase-meta">
+                        <span>🧪 All Systems</span>
+                        <span class="time-badge">⏱ 10 minutes</span>
+                    </div>
+                    <div class="step-list">
+                        <div class="step"><input type="checkbox"><label>Navigate to landing page</label></div>
+                        <div class="step"><input type="checkbox"><label>Submit form with test data</label></div>
+                        <div class="step"><input type="checkbox"><label>Check HubSpot for new contact</label></div>
+                        <div class="step"><input type="checkbox"><label>Wait 1-2 minutes for autoresponder email</label></div>
+                        <div class="step"><input type="checkbox"><label>Click PDF download link in email</label></div>
+                        <div class="step"><input type="checkbox"><label>Verify PDF opens correctly</label></div>
+                        <div class="step"><input type="checkbox"><label>Verify thank-you redirect works</label></div>
+                        <div class="step"><input type="checkbox"><label>Verify campaign association in HubSpot</label></div>
+                    </div>
+                    <div class="verify-section">
+                        <h4>✓ Verification</h4>
+                        <div class="verify-item"><input type="checkbox"><label>Form submits without errors</label></div>
+                        <div class="verify-item"><input type="checkbox"><label>Contact created in HubSpot</label></div>
+                        <div class="verify-item"><input type="checkbox"><label>Email delivered with working link</label></div>
+                        <div class="verify-item"><input type="checkbox"><label>PDF opens successfully</label></div>
+                        <div class="verify-item"><input type="checkbox"><label>Campaign association is correct</label></div>
+                    </div>
+                </div>
+
+                <!-- Phase 7 -->
+                <div class="phase" data-phase="7">
+                    <div class="phase-header">
+                        <input type="checkbox" class="phase-checkbox" data-phase="7">
+                        <label class="phase-title">Phase 7: LeanData Configuration</label>
+                    </div>
+                    <div class="phase-meta">
+                        <span>🎯 LeanData</span>
+                        <span class="time-badge">⏱ 10 minutes</span>
+                    </div>
+                    <div class="step-list">
+                        <div class="step"><input type="checkbox"><label>Open the LeanData lead routing graph</label></div>
+                        <div class="step"><input type="checkbox"><label>Navigate to "Route to Cadences" decision branch</label></div>
+                        <div class="step"><input type="checkbox"><label>Find the "Content Downloads" condition</label></div>
+                        <div class="step"><input type="checkbox"><label>Click to edit the condition</label></div>
+                        <div class="step"><input type="checkbox"><label>Add campaign name to the list (use copy button above)</label></div>
+                        <div class="step"><input type="checkbox"><label>Save changes</label></div>
+                        <div class="step"><input type="checkbox"><label>Wait 5-10 minutes for propagation</label></div>
+                    </div>
+                    <div class="verify-section">
+                        <h4>✓ Verification</h4>
+                        <div class="verify-item"><input type="checkbox"><label>Campaign name appears in condition</label></div>
+                        <div class="verify-item"><input type="checkbox"><label>Changes are saved</label></div>
+                        <div class="verify-item"><input type="checkbox"><label>Leads will route to nurture cadence</label></div>
+                    </div>
+                </div>
+
+                <!-- Master Checklist -->
+                <div class="master-checklist">
+                    <h3>📋 Master Checklist</h3>
+                    <div class="master-item">
+                        <input type="checkbox" id="masterAll">
+                        <label for="masterAll"><strong>Phase 1: Salesforce Campaign Created</strong></label>
+                    </div>
+                    <div class="master-item">
+                        <input type="checkbox" id="masterAll">
+                        <label for="masterAll"><strong>Phase 2: HubSpot Campaign Created</strong></label>
+                    </div>
+                    <div class="master-item">
+                        <input type="checkbox" id="masterAll">
+                        <label for="masterAll"><strong>Phase 3: Autoresponder Email Setup</strong></label>
+                    </div>
+                    <div class="master-item">
+                        <input type="checkbox" id="masterAll">
+                        <label for="masterAll"><strong>Phase 4: WordPress Form Updated</strong></label>
+                    </div>
+                    <div class="master-item">
+                        <input type="checkbox" id="masterAll">
+                        <label for="masterAll"><strong>Phase 5: HubSpot Workflow Created</strong></label>
+                    </div>
+                    <div class="master-item">
+                        <input type="checkbox" id="masterAll">
+                        <label for="masterAll"><strong>Phase 6: Form Testing Complete</strong></label>
+                    </div>
+                    <div class="master-item">
+                        <input type="checkbox" id="masterAll">
+                        <label for="masterAll"><strong>Phase 7: LeanData Configuration Done</strong></label>
+                    </div>
+                    <div class="master-item" style="margin-top: 20px; font-size: 16px;">
+                        <input type="checkbox" id="allComplete">
+                        <label for="allComplete"><strong>✅ ALL COMPLETE</strong></label>
+                    </div>
+                </div>
+
+                <!-- Completion Banner -->
+                <div class="completion-banner" id="completionBanner">
+                    <h2>🎉 Setup Complete!</h2>
+                    <p>Your gated content asset is now live and integrated across all systems.</p>
+                    <p style="margin-top: 15px; font-size: 14px;">Total setup time: ~55 minutes</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Update campaign name based on inputs
+        function updateCampaignName() {
+            const formalTitle = document.getElementById('formalTitle').value;
+            const shortName = document.getElementById('shortName').value;
+            const assetType = document.getElementById('assetType').value;
+            const quarter = document.getElementById('quarter').value;
+            const landingUrl = document.getElementById('landingUrl').value;
+
+            if (shortName && assetType && quarter) {
+                // Parse quarter (Q1 2026 -> 26Q1)
+                const quarterMatch = quarter.match(/Q(\d)\s*(\d{4})/i);
+                let yearQuarter = '';
+                if (quarterMatch) {
+                    const q = quarterMatch[1];
+                    const year = quarterMatch[2].slice(-2);
+                    yearQuarter = `${year}Q${q}`;
+                } else {
+                    yearQuarter = quarter.replace(/\s/g, '');
+                }
+
+                const campaignName = `${yearQuarter}_${shortName}_${assetType}`;
+                const autoresponderName = `${campaignName}_AUTORESPONDER`;
+                const redirectUrl = landingUrl ? `${landingUrl}${landingUrl.includes('?') ? '&' : '?'}thankYou=true` : '';
+
+                document.getElementById('campaignName').textContent = campaignName;
+                document.getElementById('autoresponderName').textContent = autoresponderName;
+                document.getElementById('redirectUrl').textContent = redirectUrl;
+                document.getElementById('campaignDetails').style.display = 'block';
+                document.getElementById('workflowSection').style.display = 'block';
+
+                // Save to localStorage
+                localStorage.setItem('gatedContentData', JSON.stringify({
+                    formalTitle,
+                    shortName,
+                    assetType,
+                    quarter,
+                    assetUrl: document.getElementById('assetUrl').value,
+                    landingUrl,
+                    campaignName,
+                    autoresponderName,
+                    redirectUrl
+                }));
+            } else {
+                document.getElementById('campaignDetails').style.display = 'none';
+                document.getElementById('workflowSection').style.display = 'none';
+            }
+        }
+
+        // Copy to clipboard
+        function copyToClipboard(text, button) {
+            navigator.clipboard.writeText(text).then(() => {
+                button.textContent = '✓ Copied!';
+                button.classList.add('copied');
+                setTimeout(() => {
+                    button.textContent = 'Copy';
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(() => {
+                // Fallback
+                const textarea = document.createElement('textarea');
+                textarea.value = text;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                button.textContent = '✓ Copied!';
+                button.classList.add('copied');
+                setTimeout(() => {
+                    button.textContent = 'Copy';
+                    button.classList.remove('copied');
+                }, 2000);
+            });
+        }
+
+        // Track phase completion
+        document.querySelectorAll('.phase-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const phase = this.parentElement.parentElement;
+                if (this.checked) {
+                    phase.classList.add('completed');
+                } else {
+                    phase.classList.remove('completed');
+                }
+                saveProgress();
+            });
+        });
+
+        // Track all complete
+        document.getElementById('allComplete').addEventListener('change', function() {
+            if (this.checked) {
+                document.getElementById('completionBanner').classList.add('show');
+            } else {
+                document.getElementById('completionBanner').classList.remove('show');
+            }
+            saveProgress();
+        });
+
+        // Save and load progress
+        function saveProgress() {
+            const progress = {};
+            document.querySelectorAll('input[type="checkbox"]').forEach((checkbox, index) => {
+                progress[index] = checkbox.checked;
+            });
+            localStorage.setItem('gatedContentProgress', JSON.stringify(progress));
+        }
+
+        function loadProgress() {
+            const progress = JSON.parse(localStorage.getItem('gatedContentProgress') || '{}');
+            document.querySelectorAll('input[type="checkbox"]').forEach((checkbox, index) => {
+                if (progress[index]) {
+                    checkbox.checked = true;
+                }
+            });
+
+            // Restore phase completed states
+            document.querySelectorAll('.phase-checkbox:checked').forEach(checkbox => {
+                checkbox.parentElement.parentElement.classList.add('completed');
+            });
+
+            // Restore completion banner
+            if (document.getElementById('allComplete').checked) {
+                document.getElementById('completionBanner').classList.add('show');
+            }
+        }
+
+        function loadData() {
+            const data = JSON.parse(localStorage.getItem('gatedContentData') || '{}');
+            if (data.formalTitle) {
+                document.getElementById('formalTitle').value = data.formalTitle;
+                document.getElementById('shortName').value = data.shortName;
+                document.getElementById('assetType').value = data.assetType;
+                document.getElementById('quarter').value = data.quarter;
+                document.getElementById('assetUrl').value = data.assetUrl;
+                document.getElementById('landingUrl').value = data.landingUrl;
+                updateCampaignName();
+            }
+            loadProgress();
+        }
+
+        // Event listeners
+        document.getElementById('formalTitle').addEventListener('change', updateCampaignName);
+        document.getElementById('shortName').addEventListener('change', updateCampaignName);
+        document.getElementById('assetType').addEventListener('change', updateCampaignName);
+        document.getElementById('quarter').addEventListener('change', updateCampaignName);
+        document.getElementById('landingUrl').addEventListener('change', updateCampaignName);
+
+        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            checkbox.addEventListener('change', saveProgress);
+        });
+
+        // Load data on page load
+        window.addEventListener('load', loadData);
+    </script>
+</body>
+</html>
