@@ -104,32 +104,6 @@
             box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
         }
 
-        .campaign-details {
-            background: #e7f3ff;
-            border-left: 4px solid #667eea;
-            padding: 20px;
-            border-radius: 6px;
-            margin-top: 20px;
-        }
-
-        .campaign-details h3 {
-            font-size: 13px;
-            color: #667eea;
-            text-transform: uppercase;
-            font-weight: 600;
-            margin-bottom: 15px;
-        }
-
-        .detail-row {
-            margin-bottom: 12px;
-        }
-
-        .detail-label {
-            font-size: 12px;
-            color: #666;
-            margin-bottom: 4px;
-        }
-
         .copy-block {
             display: flex;
             justify-content: space-between;
@@ -141,6 +115,7 @@
             font-family: 'Monaco', 'Courier New', monospace;
             font-size: 13px;
             overflow-x: auto;
+            margin: 12px 0;
         }
 
         .copy-button {
@@ -437,35 +412,6 @@
                         <input type="url" id="landingUrl" placeholder="https://sundaysky.com/ebook/...">
                     </div>
                 </div>
-
-                <!-- Campaign Details Generated -->
-                <div class="campaign-details" id="campaignDetails" style="display: none;">
-                    <h3>Generated Campaign Names</h3>
-
-                    <div class="detail-row">
-                        <div class="detail-label">Campaign Name</div>
-                        <div class="copy-block">
-                            <span id="campaignName"></span>
-                            <button class="copy-button" onclick="copyToClipboard(document.getElementById('campaignName').textContent, this)">Copy</button>
-                        </div>
-                    </div>
-
-                    <div class="detail-row">
-                        <div class="detail-label">Autoresponder Email</div>
-                        <div class="copy-block">
-                            <span id="autoresponderName"></span>
-                            <button class="copy-button" onclick="copyToClipboard(document.getElementById('autoresponderName').textContent, this)">Copy</button>
-                        </div>
-                    </div>
-
-                    <div class="detail-row">
-                        <div class="detail-label">Redirect URL (with thank you)</div>
-                        <div class="copy-block">
-                            <span id="redirectUrl"></span>
-                            <button class="copy-button" onclick="copyToClipboard(document.getElementById('redirectUrl').textContent, this)">Copy</button>
-                        </div>
-                    </div>
-                </div>
             </div>
 
             <!-- Workflow Section -->
@@ -485,7 +431,11 @@
                     <div class="step-list">
                         <div class="step"><input type="checkbox"><label>Go to Salesforce → Campaigns</label></div>
                         <div class="step"><input type="checkbox"><label>Click "New"</label></div>
-                        <div class="step"><input type="checkbox"><label>Enter campaign name (use copy button above)</label></div>
+                        <div class="step"><input type="checkbox"><label>Enter campaign name:</label></div>
+                        <div class="copy-block" style="margin-left: 30px;">
+                            <span class="campaign-name-display"></span>
+                            <button class="copy-button" onclick="copyToClipboard(document.querySelector('.campaign-name-display').textContent, this)">Copy</button>
+                        </div>
                         <div class="step"><input type="checkbox"><label>Set Type to "Content Download"</label></div>
                         <div class="step"><input type="checkbox"><label>Set Status to "Active"</label></div>
                         <div class="step"><input type="checkbox"><label>Check the "Active" checkbox</label></div>
@@ -513,7 +463,11 @@
                     <div class="step-list">
                         <div class="step"><input type="checkbox"><label>Go to HubSpot → Marketing → Campaigns</label></div>
                         <div class="step"><input type="checkbox"><label>Click "Create campaign"</label></div>
-                        <div class="step"><input type="checkbox"><label>Enter campaign name (use copy button above)</label></div>
+                        <div class="step"><input type="checkbox"><label>Enter campaign name (must match Salesforce):</label></div>
+                        <div class="copy-block" style="margin-left: 30px;">
+                            <span class="campaign-name-display"></span>
+                            <button class="copy-button" onclick="copyToClipboard(document.querySelector('.campaign-name-display').textContent, this)">Copy</button>
+                        </div>
                         <div class="step"><input type="checkbox"><label>Set Campaign type to "Content Download"</label></div>
                         <div class="step"><input type="checkbox"><label>Click "Save & continue"</label></div>
                         <div class="step"><input type="checkbox"><label>Click "Add assets"</label></div>
@@ -542,8 +496,12 @@
                         <div class="step"><input type="checkbox"><label>Go to HubSpot → Marketing → Emails</label></div>
                         <div class="step"><input type="checkbox"><label>Find an existing content download autoresponder</label></div>
                         <div class="step"><input type="checkbox"><label>Click "Actions" → "Clone"</label></div>
-                        <div class="step"><input type="checkbox"><label>Name it with _AUTORESPONDER suffix (use copy button above)</label></div>
-                        <div class="step"><input type="checkbox"><label>Update subject line to mention the asset</label></div>
+                        <div class="step"><input type="checkbox"><label>Name it with _AUTORESPONDER suffix:</label></div>
+                        <div class="copy-block" style="margin-left: 30px;">
+                            <span class="autoresponder-name-display"></span>
+                            <button class="copy-button" onclick="copyToClipboard(document.querySelector('.autoresponder-name-display').textContent, this)">Copy</button>
+                        </div>
+                        <div class="step"><input type="checkbox"><label>Update subject line to mention the asset title</label></div>
                         <div class="step"><input type="checkbox"><label>Update email body copy</label></div>
                         <div class="step"><input type="checkbox"><label>Replace asset URL in CTA button</label></div>
                         <div class="step"><input type="checkbox"><label>Save the email draft</label></div>
@@ -570,8 +528,16 @@
                         <div class="step"><input type="checkbox"><label>Go to WordPress Admin → Resources</label></div>
                         <div class="step"><input type="checkbox"><label>Find the landing page for this asset</label></div>
                         <div class="step"><input type="checkbox"><label>Locate the Gravity Form on the page</label></div>
-                        <div class="step"><input type="checkbox"><label>Update form name (use copy button above)</label></div>
-                        <div class="step"><input type="checkbox"><label>Update form redirect URL (use copy button above)</label></div>
+                        <div class="step"><input type="checkbox"><label>Update form name:</label></div>
+                        <div class="copy-block" style="margin-left: 30px;">
+                            <span class="campaign-name-display"></span>
+                            <button class="copy-button" onclick="copyToClipboard(document.querySelector('.campaign-name-display').textContent, this)">Copy</button>
+                        </div>
+                        <div class="step"><input type="checkbox"><label>Update form redirect URL:</label></div>
+                        <div class="copy-block" style="margin-left: 30px;">
+                            <span class="redirect-url-display"></span>
+                            <button class="copy-button" onclick="copyToClipboard(document.querySelector('.redirect-url-display').textContent, this)">Copy</button>
+                        </div>
                         <div class="step"><input type="checkbox"><label>Publish the page</label></div>
                     </div>
                     <div class="verify-section">
@@ -595,11 +561,23 @@
                         <div class="step"><input type="checkbox"><label>Go to HubSpot → Automation → Workflows</label></div>
                         <div class="step"><input type="checkbox"><label>Find the most recent content download workflow</label></div>
                         <div class="step"><input type="checkbox"><label>Click "Actions" → "Clone"</label></div>
-                        <div class="step"><input type="checkbox"><label>Rename it (use copy button above)</label></div>
-                        <div class="step"><input type="checkbox"><label>Update Element 1: Form trigger</label></div>
-                        <div class="step"><input type="checkbox"><label>Update Element 2: Autoresponder email (use copy button above)</label></div>
-                        <div class="step"><input type="checkbox"><label>Update Element 3: Salesforce campaign (use copy button above)</label></div>
-                        <div class="step"><input type="checkbox"><label>Update Element 4: Task description with asset title</label></div>
+                        <div class="step"><input type="checkbox"><label>Rename it:</label></div>
+                        <div class="copy-block" style="margin-left: 30px;">
+                            <span class="campaign-name-display"></span>
+                            <button class="copy-button" onclick="copyToClipboard(document.querySelector('.campaign-name-display').textContent, this)">Copy</button>
+                        </div>
+                        <div class="step"><input type="checkbox"><label>Update Element 1: Form trigger to new Gravity Form</label></div>
+                        <div class="step"><input type="checkbox"><label>Update Element 2: Autoresponder email:</label></div>
+                        <div class="copy-block" style="margin-left: 30px;">
+                            <span class="autoresponder-name-display"></span>
+                            <button class="copy-button" onclick="copyToClipboard(document.querySelector('.autoresponder-name-display').textContent, this)">Copy</button>
+                        </div>
+                        <div class="step"><input type="checkbox"><label>Update Element 3: Salesforce campaign:</label></div>
+                        <div class="copy-block" style="margin-left: 30px;">
+                            <span class="campaign-name-display"></span>
+                            <button class="copy-button" onclick="copyToClipboard(document.querySelector('.campaign-name-display').textContent, this)">Copy</button>
+                        </div>
+                        <div class="step"><input type="checkbox"><label>Update Element 4: Task description with formal asset title</label></div>
                         <div class="step"><input type="checkbox"><label>Update Element 5: Slack notification with asset title</label></div>
                         <div class="step"><input type="checkbox"><label>Save the workflow</label></div>
                         <div class="step"><input type="checkbox"><label>Turn ON the workflow</label></div>
@@ -656,7 +634,11 @@
                         <div class="step"><input type="checkbox"><label>Navigate to "Route to Cadences" decision branch</label></div>
                         <div class="step"><input type="checkbox"><label>Find the "Content Downloads" condition</label></div>
                         <div class="step"><input type="checkbox"><label>Click to edit the condition</label></div>
-                        <div class="step"><input type="checkbox"><label>Add campaign name to the list (use copy button above)</label></div>
+                        <div class="step"><input type="checkbox"><label>Add campaign name to the list:</label></div>
+                        <div class="copy-block" style="margin-left: 30px;">
+                            <span class="campaign-name-display"></span>
+                            <button class="copy-button" onclick="copyToClipboard(document.querySelector('.campaign-name-display').textContent, this)">Copy</button>
+                        </div>
                         <div class="step"><input type="checkbox"><label>Save changes</label></div>
                         <div class="step"><input type="checkbox"><label>Wait 5-10 minutes for propagation</label></div>
                     </div>
@@ -740,10 +722,21 @@
                 const autoresponderName = `${campaignName}_AUTORESPONDER`;
                 const redirectUrl = landingUrl ? `${landingUrl}${landingUrl.includes('?') ? '&' : '?'}thankYou=true` : '';
 
-                document.getElementById('campaignName').textContent = campaignName;
-                document.getElementById('autoresponderName').textContent = autoresponderName;
-                document.getElementById('redirectUrl').textContent = redirectUrl;
-                document.getElementById('campaignDetails').style.display = 'block';
+                // Update all campaign name displays
+                document.querySelectorAll('.campaign-name-display').forEach(el => {
+                    el.textContent = campaignName;
+                });
+
+                // Update autoresponder displays
+                document.querySelectorAll('.autoresponder-name-display').forEach(el => {
+                    el.textContent = autoresponderName;
+                });
+
+                // Update redirect URL displays
+                document.querySelectorAll('.redirect-url-display').forEach(el => {
+                    el.textContent = redirectUrl;
+                });
+
                 document.getElementById('workflowSection').style.display = 'block';
 
                 // Save to localStorage
@@ -759,7 +752,6 @@
                     redirectUrl
                 }));
             } else {
-                document.getElementById('campaignDetails').style.display = 'none';
                 document.getElementById('workflowSection').style.display = 'none';
             }
         }
