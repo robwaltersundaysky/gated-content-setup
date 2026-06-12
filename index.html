@@ -520,18 +520,20 @@
                         <span class="time-badge">⏱ 5 minutes</span>
                     </div>
                     <div class="step-list">
-                        <div class="step"><input type="checkbox"><label>Go to Salesforce → Campaigns</label></div>
-                        <div class="step"><input type="checkbox"><label>Click "New"</label></div>
-                        <div class="step"><input type="checkbox"><label>Enter campaign name:</label></div>
+                        <div class="step"><input type="checkbox"><label>Open Salesforce in your browser and log in with your credentials</label></div>
+                        <div class="step"><input type="checkbox"><label>In the left sidebar, click on "Campaigns" under the Marketing section</label></div>
+                        <div class="step"><input type="checkbox"><label>Click the blue "New" button in the top-right corner to create a new campaign</label></div>
+                        <div class="step"><input type="checkbox"><label>In the "Campaign Name" field, enter this campaign name (copy it below):</label></div>
                         <div class="copy-block" style="margin-left: 0;">
                             <span class="campaign-name-display"></span>
                             <button class="copy-button" onclick="copyToClipboard(document.querySelector('.campaign-name-display').textContent, this)">Copy</button>
                         </div>
-                        <div class="step"><input type="checkbox"><label>Set Type to "Content Download"</label></div>
-                        <div class="step"><input type="checkbox"><label>Set Status to "Active"</label></div>
-                        <div class="step"><input type="checkbox"><label>Check the "Active" checkbox</label></div>
-                        <div class="step"><input type="checkbox"><label>Set Start Date to today</label></div>
-                        <div class="step"><input type="checkbox"><label>Click Save</label></div>
+                        <div class="step"><input type="checkbox"><label>Find the "Type" dropdown and select "Content Download"</label></div>
+                        <div class="step"><input type="checkbox"><label>Find the "Status" dropdown and select "Active"</label></div>
+                        <div class="step"><input type="checkbox"><label>Check the "Active" checkbox (it should be checked when you set Status to Active, but verify it's checked)</label></div>
+                        <div class="step"><input type="checkbox"><label>Set "Start Date" to today's date</label></div>
+                        <div class="step"><input type="checkbox"><label>Click the "Save" button at the bottom of the form</label></div>
+                        <div class="step"><input type="checkbox"><label>You should see a confirmation that the campaign was created successfully</label></div>
                     </div>
                     <div class="verify-section">
                         <h4>✓ Verification</h4>
@@ -552,18 +554,20 @@
                         <span class="time-badge">⏱ 5 minutes</span>
                     </div>
                     <div class="step-list">
-                        <div class="step"><input type="checkbox"><label>Go to HubSpot → Marketing → Campaigns</label></div>
-                        <div class="step"><input type="checkbox"><label>Click "Create campaign"</label></div>
-                        <div class="step"><input type="checkbox"><label>Enter campaign name (must match Salesforce):</label></div>
+                        <div class="step"><input type="checkbox"><label>Open HubSpot in your browser and log in</label></div>
+                        <div class="step"><input type="checkbox"><label>From the main menu, click "Marketing" at the top</label></div>
+                        <div class="step"><input type="checkbox"><label>In the submenu, click "Campaigns"</label></div>
+                        <div class="step"><input type="checkbox"><label>Click the blue "Create campaign" button on the right side of the page</label></div>
+                        <div class="step"><input type="checkbox"><label>In the "Campaign name" field, enter the campaign name (copy it below) — <strong>it MUST match the Salesforce campaign name exactly</strong>:</label></div>
                         <div class="copy-block" style="margin-left: 0;">
                             <span class="campaign-name-display"></span>
                             <button class="copy-button" onclick="copyToClipboard(document.querySelector('.campaign-name-display').textContent, this)">Copy</button>
                         </div>
-                        <div class="step"><input type="checkbox"><label>Set Campaign type to "Content Download"</label></div>
-                        <div class="step"><input type="checkbox"><label>Click "Save & continue"</label></div>
-                        <div class="step"><input type="checkbox"><label>Click "Add assets"</label></div>
-                        <div class="step"><input type="checkbox"><label>Select the PDF asset</label></div>
-                        <div class="step"><input type="checkbox"><label>Save the campaign</label></div>
+                        <div class="step"><input type="checkbox"><label>Select "Content Download" from the "Campaign type" dropdown</label></div>
+                        <div class="step"><input type="checkbox"><label>Click the blue "Save & continue" button</label></div>
+                        <div class="step"><input type="checkbox"><label>On the next screen, you'll see options to add content. Click the "Add assets" button</label></div>
+                        <div class="step"><input type="checkbox"><label>Find and select the PDF asset from your HubSpot TOFU Assets folder</label></div>
+                        <div class="step"><input type="checkbox"><label>Click "Save" to complete the campaign setup</label></div>
                     </div>
                     <div class="verify-section">
                         <h4>✓ Verification</h4>
@@ -584,18 +588,21 @@
                         <span class="time-badge">⏱ 10 minutes</span>
                     </div>
                     <div class="step-list">
-                        <div class="step"><input type="checkbox"><label>Go to HubSpot → Marketing → Emails</label></div>
-                        <div class="step"><input type="checkbox"><label>Find an existing content download autoresponder</label></div>
-                        <div class="step"><input type="checkbox"><label>Click "Actions" → "Clone"</label></div>
-                        <div class="step"><input type="checkbox"><label>Name it with _AUTORESPONDER suffix:</label></div>
+                        <div class="step"><input type="checkbox"><label>Open HubSpot and click "Marketing" → "Emails" to see your email templates</label></div>
+                        <div class="step"><input type="checkbox"><label>Look for a recent autoresponder email template (one that was created for a previous content download). This email sends automatically when someone submits the form</label></div>
+                        <div class="step"><input type="checkbox"><label>Hover over that email template and click the "Actions" dropdown menu</label></div>
+                        <div class="step"><input type="checkbox"><label>Click "Clone" to create a copy of that email template</label></div>
+                        <div class="step"><input type="checkbox"><label>When prompted, name the new email using this name (copy it below) — this helps keep your emails organized:</label></div>
                         <div class="copy-block" style="margin-left: 0;">
                             <span class="autoresponder-name-display"></span>
                             <button class="copy-button" onclick="copyToClipboard(document.querySelector('.autoresponder-name-display').textContent, this)">Copy</button>
                         </div>
-                        <div class="step"><input type="checkbox"><label>Update subject line to mention the asset</label></div>
-                        <div class="step"><input type="checkbox"><label>Update email body copy</label></div>
-                        <div class="step"><input type="checkbox"><label>Replace asset URL in CTA button</label></div>
-                        <div class="step"><input type="checkbox"><label>Save the email draft</label></div>
+                        <div class="step"><input type="checkbox"><label>Click to edit the cloned email</label></div>
+                        <div class="step"><input type="checkbox"><label>Change the email subject line to mention your asset title (example: "Here's your Customer Onboarding Playbook")</label></div>
+                        <div class="step"><input type="checkbox"><label>Update the email body text to mention the asset by name and create excitement about it</label></div>
+                        <div class="step"><input type="checkbox"><label>Find the download button or link in the email and replace the URL with the actual PDF link from your HubSpot TOFU Assets folder</label></div>
+                        <div class="step"><input type="checkbox"><label>Click "Save" to save the email template</label></div>
+                        <div class="step"><input type="checkbox"><label>Send yourself a test email to verify it looks good and the download link works</label></div>
                     </div>
                     <div class="verify-section">
                         <h4>✓ Verification</h4>
@@ -616,20 +623,22 @@
                         <span class="time-badge">⏱ 5 minutes</span>
                     </div>
                     <div class="step-list">
-                        <div class="step"><input type="checkbox"><label>Go to WordPress Admin → Resources</label></div>
-                        <div class="step"><input type="checkbox"><label>Find the landing page for this asset</label></div>
-                        <div class="step"><input type="checkbox"><label>Locate the Gravity Form on the page</label></div>
-                        <div class="step"><input type="checkbox"><label>Update form name:</label></div>
+                        <div class="step"><input type="checkbox"><label>Log in to WordPress (the CMS that runs your website)</label></div>
+                        <div class="step"><input type="checkbox"><label>From the left menu, click "Resources" to see your resource/ebook pages</label></div>
+                        <div class="step"><input type="checkbox"><label>Find and click on the landing page for your asset</label></div>
+                        <div class="step"><input type="checkbox"><label>Look for the form on the page — this is where visitors will enter their information to download the asset</label></div>
+                        <div class="step"><input type="checkbox"><label>Click on the form to edit it, then change the form name to match your campaign name (copy it below):</label></div>
                         <div class="copy-block" style="margin-left: 0;">
                             <span class="campaign-name-display"></span>
                             <button class="copy-button" onclick="copyToClipboard(document.querySelector('.campaign-name-display').textContent, this)">Copy</button>
                         </div>
-                        <div class="step"><input type="checkbox"><label>Update form redirect URL:</label></div>
+                        <div class="step"><input type="checkbox"><label>Find the "Redirect URL" setting in the form and update it to this URL (this is where visitors go after they submit) — copy it below:</label></div>
                         <div class="copy-block" style="margin-left: 0;">
                             <span class="redirect-url-display"></span>
                             <button class="copy-button" onclick="copyToClipboard(document.querySelector('.redirect-url-display').textContent, this)">Copy</button>
                         </div>
-                        <div class="step"><input type="checkbox"><label>Publish the page</label></div>
+                        <div class="step"><input type="checkbox"><label>Click "Update" or "Publish" to save your changes to the page</label></div>
+                        <div class="step"><input type="checkbox"><label>Visit your landing page in a new browser tab to verify the form looks good and the redirect works</label></div>
                     </div>
                     <div class="verify-section">
                         <h4>✓ Verification</h4>
@@ -649,29 +658,31 @@
                         <span class="time-badge">⏱ 15 minutes</span>
                     </div>
                     <div class="step-list">
-                        <div class="step"><input type="checkbox"><label>Go to HubSpot → Automation → Workflows</label></div>
-                        <div class="step"><input type="checkbox"><label>Find the most recent content download workflow</label></div>
-                        <div class="step"><input type="checkbox"><label>Click "Actions" → "Clone"</label></div>
-                        <div class="step"><input type="checkbox"><label>Rename it:</label></div>
+                        <div class="step"><input type="checkbox"><label>Log in to HubSpot and click "Automation" in the main menu</label></div>
+                        <div class="step"><input type="checkbox"><label>Click "Workflows" to see your automation workflows</label></div>
+                        <div class="step"><input type="checkbox"><label>Look for the most recent content download workflow (this one already has all the steps set up, so we'll copy it)</label></div>
+                        <div class="step"><input type="checkbox"><label>Hover over that workflow and click "Actions" → "Clone" to create a copy</label></div>
+                        <div class="step"><input type="checkbox"><label>Name the new workflow using your campaign name (copy it below):</label></div>
                         <div class="copy-block" style="margin-left: 0;">
                             <span class="campaign-name-display"></span>
                             <button class="copy-button" onclick="copyToClipboard(document.querySelector('.campaign-name-display').textContent, this)">Copy</button>
                         </div>
-                        <div class="step"><input type="checkbox"><label>Update Element 1: Form trigger to new Gravity Form</label></div>
-                        <div class="step"><input type="checkbox"><label>Update Element 2: Autoresponder email:</label></div>
+                        <div class="step"><input type="checkbox"><label>Click to edit the cloned workflow</label></div>
+                        <div class="step"><input type="checkbox"><label><strong>Element 1 (Trigger):</strong> Click on the form trigger step and change it to your new Gravity Form</label></div>
+                        <div class="step"><input type="checkbox"><label><strong>Element 2 (Email):</strong> Click on the email step and update it to send your new autoresponder email (copy the name below):</label></div>
                         <div class="copy-block" style="margin-left: 0;">
                             <span class="autoresponder-name-display"></span>
                             <button class="copy-button" onclick="copyToClipboard(document.querySelector('.autoresponder-name-display').textContent, this)">Copy</button>
                         </div>
-                        <div class="step"><input type="checkbox"><label>Update Element 3: Salesforce campaign:</label></div>
+                        <div class="step"><input type="checkbox"><label><strong>Element 3 (Campaign):</strong> Click on the Salesforce campaign step and change it to your campaign (copy it below):</label></div>
                         <div class="copy-block" style="margin-left: 0;">
                             <span class="campaign-name-display"></span>
                             <button class="copy-button" onclick="copyToClipboard(document.querySelector('.campaign-name-display').textContent, this)">Copy</button>
                         </div>
-                        <div class="step"><input type="checkbox"><label>Update Element 4: Task description with formal asset title</label></div>
-                        <div class="step"><input type="checkbox"><label>Update Element 5: Slack notification with asset title</label></div>
-                        <div class="step"><input type="checkbox"><label>Save the workflow</label></div>
-                        <div class="step"><input type="checkbox"><label>Turn ON the workflow</label></div>
+                        <div class="step"><input type="checkbox"><label><strong>Element 4 (Task):</strong> Click on the task creation step and update the task description to mention your asset title (this helps the sales team know what the lead downloaded)</label></div>
+                        <div class="step"><input type="checkbox"><label><strong>Element 5 (Slack):</strong> Click on the Slack notification step and update the message to mention your asset title</label></div>
+                        <div class="step"><input type="checkbox"><label>Click "Save" to save all your changes</label></div>
+                        <div class="step"><input type="checkbox"><label>Click the toggle to turn the workflow "ON" — without this, it won't run automatically</label></div>
                     </div>
                     <div class="verify-section">
                         <h4>✓ Verification</h4>
@@ -691,14 +702,15 @@
                         <span class="time-badge">⏱ 10 minutes</span>
                     </div>
                     <div class="step-list">
-                        <div class="step"><input type="checkbox"><label>Navigate to landing page</label></div>
-                        <div class="step"><input type="checkbox"><label>Submit form with test data</label></div>
-                        <div class="step"><input type="checkbox"><label>Check HubSpot for new contact</label></div>
-                        <div class="step"><input type="checkbox"><label>Wait 1-2 minutes for autoresponder email</label></div>
-                        <div class="step"><input type="checkbox"><label>Click PDF download link in email</label></div>
-                        <div class="step"><input type="checkbox"><label>Verify PDF opens correctly</label></div>
-                        <div class="step"><input type="checkbox"><label>Verify thank-you redirect works</label></div>
-                        <div class="step"><input type="checkbox"><label>Verify campaign association in HubSpot</label></div>
+                        <div class="step"><input type="checkbox"><label>Open your landing page in a fresh browser window or incognito tab</label></div>
+                        <div class="step"><input type="checkbox"><label>Fill out the form with test information (use an email like test@sundaysky.com or your personal email)</label></div>
+                        <div class="step"><input type="checkbox"><label>Click the submit button</label></div>
+                        <div class="step"><input type="checkbox"><label>Verify that you're redirected to a thank-you page (this confirms the form submission worked)</label></div>
+                        <div class="step"><input type="checkbox"><label>Wait 1-2 minutes, then log in to HubSpot and search for the test contact you just created to verify they appear in the system</label></div>
+                        <div class="step"><input type="checkbox"><label>Check your test email inbox for the autoresponder email — it should arrive within a few minutes</label></div>
+                        <div class="step"><input type="checkbox"><label>Open the autoresponder email and click the download link to verify the PDF opens correctly</label></div>
+                        <div class="step"><input type="checkbox"><label>In HubSpot, find the test contact and verify they're associated with your campaign (check the campaign field)</label></div>
+                        <div class="step"><input type="checkbox"><label>If everything worked, congratulations! Your form is live and working. If anything didn't work, troubleshoot that specific step</label></div>
                     </div>
                     <div class="verify-section">
                         <h4>✓ Verification</h4>
@@ -721,17 +733,19 @@
                         <span class="time-badge">⏱ 10 minutes</span>
                     </div>
                     <div class="step-list">
-                        <div class="step"><input type="checkbox"><label>Open the LeanData lead routing graph</label></div>
-                        <div class="step"><input type="checkbox"><label>Navigate to "Route to Cadences" decision branch</label></div>
-                        <div class="step"><input type="checkbox"><label>Find the "Content Downloads" condition</label></div>
-                        <div class="step"><input type="checkbox"><label>Click to edit the condition</label></div>
-                        <div class="step"><input type="checkbox"><label>Add campaign name to the list:</label></div>
+                        <div class="step"><input type="checkbox"><label>Log in to LeanData (the routing system that sends leads to the right salespeople)</label></div>
+                        <div class="step"><input type="checkbox"><label>Find and open your lead routing graph (this is the flowchart that determines where leads go)</label></div>
+                        <div class="step"><input type="checkbox"><label>Locate the "Route to Cadences" decision branch — this is where content downloads get routed to nurture cadences</label></div>
+                        <div class="step"><input type="checkbox"><label>Find the "Content Downloads" condition within that branch</label></div>
+                        <div class="step"><input type="checkbox"><label>Click on that condition to edit it</label></div>
+                        <div class="step"><input type="checkbox"><label>Add your new campaign name to the list of content download campaigns (copy it below):</label></div>
                         <div class="copy-block" style="margin-left: 0;">
                             <span class="campaign-name-display"></span>
                             <button class="copy-button" onclick="copyToClipboard(document.querySelector('.campaign-name-display').textContent, this)">Copy</button>
                         </div>
-                        <div class="step"><input type="checkbox"><label>Save changes</label></div>
-                        <div class="step"><input type="checkbox"><label>Wait 5-10 minutes for propagation</label></div>
+                        <div class="step"><input type="checkbox"><label>Click "Save" or "Apply" to save your changes to the routing graph</label></div>
+                        <div class="step"><input type="checkbox"><label>Wait 5-10 minutes for the changes to propagate through the system (this is normal, the system syncs periodically)</label></div>
+                        <div class="step"><input type="checkbox"><label>Once complete, any leads who download your content will be automatically routed to the nurture cadence</label></div>
                     </div>
                     <div class="verify-section">
                         <h4>✓ Verification</h4>
