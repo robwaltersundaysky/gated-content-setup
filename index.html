@@ -623,30 +623,38 @@
                         <span class="time-badge">⏱ 5 minutes</span>
                     </div>
                     <div class="step-list">
-                        <div class="step"><input type="checkbox"><label><strong>First, clone the Gravity Form:</strong> Log in to WordPress and go to "Forms" → "Gravity Forms"</label></div>
-                        <div class="step"><input type="checkbox"><label>Find a recent content download form (one used for a previous asset) that you can duplicate</label></div>
-                        <div class="step"><input type="checkbox"><label>Click on that form, then click "Duplicate" to create a copy of it</label></div>
-                        <div class="step"><input type="checkbox"><label>Rename the cloned form to match your campaign name (copy it below):</label></div>
+                        <div class="step"><input type="checkbox"><label><strong>First, clone the Gravity Form:</strong> Log in to WordPress and go to "Forms" in the left sidebar menu. Click "Forms" again in the flyout menu.</label></div>
+                        <div class="step"><input type="checkbox"><label>Find a recent content download form (one used for a previous asset) that you can duplicate. You can do this by typing "26Q" and then the quarter of the last form created; "26Q2" for example.</label></div>
+                        <div class="step"><input type="checkbox"><label>Hover over the form title and click "Duplicate" to create a copy of it. It appears as a new form with "(1)" appended.</label></div>
+                        <div class="step"><input type="checkbox"><label>Click on the new form's title. Go to the "Settings" tab, then choose "Form Settings." Rename the form title to match your campaign name (copy it here):</label></div>
                         <div class="copy-block" style="margin-left: 0;">
                             <span class="campaign-name-display"></span>
                             <button class="copy-button" onclick="copyToClipboard(document.querySelector('.campaign-name-display').textContent, this)">Copy</button>
                         </div>
                         <div class="step"><input type="checkbox"><label>Click "Update" to save the cloned form with the new name</label></div>
-                        <div class="step"><input type="checkbox"><label><strong>Now update the WordPress page:</strong> From the left menu, click "Resources" to see your resource/ebook pages</label></div>
-                        <div class="step"><input type="checkbox"><label>Find and click on the landing page for your asset</label></div>
-                        <div class="step"><input type="checkbox"><label>Look for the form on the page — this is where visitors will enter their information to download the asset</label></div>
-                        <div class="step"><input type="checkbox"><label>Click on the form to edit it, then change the form name to match your campaign name (copy it below):</label></div>
+                        <div class="step"><input type="checkbox"><label><strong>Configure the form confirmation:</strong> Among the tabs on the left, click "Confirmations." Click "Default confirmation." Change the redirect URL to the landing page URL:</label></div>
+                        <div class="copy-block" style="margin-left: 0;">
+                            <span class="landing-page-url-display"></span>
+                            <button class="copy-button" onclick="copyToClipboard(document.querySelector('.landing-page-url-display').textContent, this)">Copy</button>
+                        </div>
+                        <div class="step"><input type="checkbox"><label><em>Note: This URL needs to append "?thankYou=true" to the landing page URL. If there is no ending forward slash on the URL, it needs to be added.</em></label></div>
+                        <div class="step"><input type="checkbox"><label>Click "Save Confirmation."</label></div>
+                        <div class="step"><input type="checkbox"><label><strong>Configure HubSpot integration:</strong> Go to the HubSpot tab along the left. Click "Edit" below the feed listed there. On the next screen, in the HubSpot Form Name field, change the Name to the campaign name:</label></div>
                         <div class="copy-block" style="margin-left: 0;">
                             <span class="campaign-name-display"></span>
                             <button class="copy-button" onclick="copyToClipboard(document.querySelector('.campaign-name-display').textContent, this)">Copy</button>
                         </div>
-                        <div class="step"><input type="checkbox"><label>Find the "Redirect URL" setting in the form and update it to this URL (this is where visitors go after they submit) — copy it below:</label></div>
+                        <div class="step"><input type="checkbox"><label>In the HubSpot Form Name field, highlight just the campaign name and replace it with the campaign name above</label></div>
+                        <div class="step"><input type="checkbox"><label><strong>Now update the WordPress landing page:</strong> You're done with the Gravity Form. Edit your WordPress landing page.</label></div>
+                        <div class="step"><input type="checkbox"><label>Scroll to the bottom. Click "Form" in the tabs. In the Gravity Form field, click and find the Gravity Form you just made. Choose it and save the page.</label></div>
+                        <div class="step"><input type="checkbox"><label>Scroll up to the Modals section. Edit the Modal Download field. Paste in the asset URL:</label></div>
                         <div class="copy-block" style="margin-left: 0;">
-                            <span class="redirect-url-display"></span>
-                            <button class="copy-button" onclick="copyToClipboard(document.querySelector('.redirect-url-display').textContent, this)">Copy</button>
+                            <span class="asset-url-display"></span>
+                            <button class="copy-button" onclick="copyToClipboard(document.querySelector('.asset-url-display').textContent, this)">Copy</button>
                         </div>
-                        <div class="step"><input type="checkbox"><label>Click "Update" or "Publish" to save your changes to the page</label></div>
-                        <div class="step"><input type="checkbox"><label>Visit your landing page in a new browser tab to verify the form looks good and the redirect works</label></div>
+                        <div class="step"><input type="checkbox"><label>Label the link with the button text you'd like (e.g. "Get the guide.")</label></div>
+                        <div class="step"><input type="checkbox"><label>In the URL Variable field, put "thankYou"</label></div>
+                        <div class="step"><input type="checkbox"><label>Save the page and preview to test.</label></div>
                     </div>
                     <div class="verify-section">
                         <h4>✓ Verification</h4>
@@ -856,6 +864,17 @@
                 // Update redirect URL displays
                 document.querySelectorAll('.redirect-url-display').forEach(el => {
                     el.textContent = redirectUrl;
+                });
+
+                // Update landing page URL displays (with ?thankYou=true appended)
+                const landingUrlWithThankYou = landingUrl ? `${landingUrl}${landingUrl.includes('?') ? '&' : '/?'}thankYou=true` : '';
+                document.querySelectorAll('.landing-page-url-display').forEach(el => {
+                    el.textContent = landingUrlWithThankYou;
+                });
+
+                // Update asset URL displays
+                document.querySelectorAll('.asset-url-display').forEach(el => {
+                    el.textContent = document.getElementById('assetUrl').value;
                 });
 
                 document.getElementById('workflowSection').style.display = 'block';
