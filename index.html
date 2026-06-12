@@ -623,8 +623,16 @@
                         <span class="time-badge">⏱ 5 minutes</span>
                     </div>
                     <div class="step-list">
-                        <div class="step"><input type="checkbox"><label>Log in to WordPress (the CMS that runs your website)</label></div>
-                        <div class="step"><input type="checkbox"><label>From the left menu, click "Resources" to see your resource/ebook pages</label></div>
+                        <div class="step"><input type="checkbox"><label><strong>First, clone the Gravity Form:</strong> Log in to WordPress and go to "Forms" → "Gravity Forms"</label></div>
+                        <div class="step"><input type="checkbox"><label>Find a recent content download form (one used for a previous asset) that you can duplicate</label></div>
+                        <div class="step"><input type="checkbox"><label>Click on that form, then click "Duplicate" to create a copy of it</label></div>
+                        <div class="step"><input type="checkbox"><label>Rename the cloned form to match your campaign name (copy it below):</label></div>
+                        <div class="copy-block" style="margin-left: 0;">
+                            <span class="campaign-name-display"></span>
+                            <button class="copy-button" onclick="copyToClipboard(document.querySelector('.campaign-name-display').textContent, this)">Copy</button>
+                        </div>
+                        <div class="step"><input type="checkbox"><label>Click "Update" to save the cloned form with the new name</label></div>
+                        <div class="step"><input type="checkbox"><label><strong>Now update the WordPress page:</strong> From the left menu, click "Resources" to see your resource/ebook pages</label></div>
                         <div class="step"><input type="checkbox"><label>Find and click on the landing page for your asset</label></div>
                         <div class="step"><input type="checkbox"><label>Look for the form on the page — this is where visitors will enter their information to download the asset</label></div>
                         <div class="step"><input type="checkbox"><label>Click on the form to edit it, then change the form name to match your campaign name (copy it below):</label></div>
